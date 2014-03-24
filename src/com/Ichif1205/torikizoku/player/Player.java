@@ -3,6 +3,11 @@ package com.Ichif1205.torikizoku.player;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 import com.Ichif1205.torikizoku.R;
 
@@ -12,7 +17,7 @@ import com.Ichif1205.torikizoku.R;
  * @author wkodate
  * 
  */
-public class Player {
+public class Player implements OnTouchListener {
 
     /**
      * x座標.
@@ -33,7 +38,6 @@ public class Player {
      * ビットマップクラス.
      */
     private Bitmap mBitmap;
-
 
     /**
      * 幅.
@@ -90,10 +94,33 @@ public class Player {
     }
 
     /**
+     * Playerの描画.
+     * 
+     * @param canvas
+     *            2次元描画を行うクラス.
+     * @param paint
+     *            色やスタイルの情報を持つクラス.
+     */
+    public final void drawPlayer(final Canvas canvas, final Paint paint) {
+	canvas.drawBitmap(mBitmap, posX, posY, paint);
+	paint.setStyle(Paint.Style.FILL_AND_STROKE);
+	// TODO 画面の端に行った時の処理
+	updatePosition();
+    }
+
+    /**
      * Playerの位置を更新.
      */
     public final void updatePosition() {
 	posX += dx;
+    }
+
+    @Override
+    public final boolean onTouch(final View v, final MotionEvent event) {
+	if (event.getAction() == MotionEvent.ACTION_UP) {
+	    dx = -dx;
+	}
+	return true;
     }
 
 }

@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -35,7 +34,7 @@ public class MainSurfaceView extends SurfaceView implements
     private SurfaceHolder surfaceHolder;
 
     /**
-     * アプリケーションの県境情報を受け渡すためのインターフェース.
+     * アプリケーションの環境情報を受け渡すためのインターフェース.
      */
     private Context mContext;
 
@@ -50,7 +49,7 @@ public class MainSurfaceView extends SurfaceView implements
     private Thread mThread;
 
     /**
-     * 描画に使用するクラス.
+     * 描画の色やスタイルを決定するクラス.
      */
     private Paint mPaint;
 
@@ -65,7 +64,12 @@ public class MainSurfaceView extends SurfaceView implements
     private Player mPlayer;
 
     /**
-     * Player用のBItmapクラス.
+     * 背景用のBitmapクラス.
+     */
+    private Bitmap mBitmapBackground;
+
+    /**
+     * Player用のBitmapクラス.
      */
     private Bitmap mBitmapPlayer;
 
@@ -159,22 +163,15 @@ public class MainSurfaceView extends SurfaceView implements
 	mPaint.setColor(Color.BLACK);
 	mPaint.setAntiAlias(true);
 
-	// Playerの画像をセット
 	Resources resource = getResources();
+	// Playerの画像をセット
 	mPlayer = new Player(resource,
 	        (int) (windowWidth * DEFAULT_PLAYER_WIDTH_RATE),
 	        (int) (windowHeight * DEFAULT_PLAYER_HEIGHT_RATE));
 	mBitmapPlayer = mPlayer.createBitmap();
+	setOnTouchListener(mPlayer);
 
 	mHandler = new Handler();
-    }
-
-    @Override
-    public final boolean onTouchEvent(final MotionEvent event) {
-	if (event.getAction() == MotionEvent.ACTION_UP) {
-	    mPlayer.dx = -mPlayer.dx;
-	}
-	return true;
     }
 
     @Override
@@ -191,17 +188,7 @@ public class MainSurfaceView extends SurfaceView implements
 	mCanvas = getHolder().lockCanvas();
 	// 背景色
 	mCanvas.drawColor(Color.WHITE);
-	drawPlayer();
+	mPlayer.drawPlayer(mCanvas, mPaint);
 	getHolder().unlockCanvasAndPost(mCanvas);
-    }
-
-    /**
-     * Playerの描画.
-     */
-    public final void drawPlayer() {
-	mCanvas.drawBitmap(mBitmapPlayer, mPlayer.posX, mPlayer.posY, mPaint);
-	mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-	// TODO 画面の端に行った時の処理
-	mPlayer.updatePosition();
     }
 }
