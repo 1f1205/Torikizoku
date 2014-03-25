@@ -12,12 +12,12 @@ import android.view.View.OnTouchListener;
 import com.Ichif1205.torikizoku.R;
 
 /**
- * Playerクラス.
+ * BasePlayerクラス.
  * 
  * @author wkodate
  * 
  */
-public class Player implements OnTouchListener {
+public abstract class BasePlayer implements OnTouchListener {
 
     /**
      * x座標.
@@ -74,7 +74,7 @@ public class Player implements OnTouchListener {
      * @param y
      *            z座標.
      */
-    public Player(final Resources res, final int x, final int y) {
+    public BasePlayer(final Resources res, final int x, final int y) {
 	// TODO 変更がありそうなら引数に追加
 	dx = DEFAULT_PLYER_DX;
 	width = DEFAULT_PLYER_WIDTH;
@@ -104,23 +104,21 @@ public class Player implements OnTouchListener {
     public final void drawPlayer(final Canvas canvas, final Paint paint) {
 	canvas.drawBitmap(mBitmap, posX, posY, paint);
 	paint.setStyle(Paint.Style.FILL_AND_STROKE);
-	// TODO 画面の端に行った時の処理
 	updatePosition();
     }
+
+    @Override
+    public abstract boolean onTouch(final View v, final MotionEvent event);
+
+    /**
+     * 画像を取得.
+     * 
+     * @return 画像のID.
+     */
+    protected abstract int getPlayerResource();
 
     /**
      * Playerの位置を更新.
      */
-    public final void updatePosition() {
-	posX += dx;
-    }
-
-    @Override
-    public final boolean onTouch(final View v, final MotionEvent event) {
-	if (event.getAction() == MotionEvent.ACTION_UP) {
-	    dx = -dx;
-	}
-	return true;
-    }
-
+    public abstract void updatePosition();
 }

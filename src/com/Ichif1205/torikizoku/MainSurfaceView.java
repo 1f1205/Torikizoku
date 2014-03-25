@@ -3,6 +3,7 @@ package com.Ichif1205.torikizoku;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.Ichif1205.torikizoku.player.Player;
+import com.Ichif1205.torikizoku.player.BasePlayer;
+import com.Ichif1205.torikizoku.player.PlayerFactory;
+import com.Ichif1205.torikizoku.utils.Const;
 
 /**
  * SurfaceViewの処理を書くメインクラス.
@@ -61,7 +64,7 @@ public class MainSurfaceView extends SurfaceView implements
     /**
      * Playerクラス.
      */
-    private Player mPlayer;
+    private BasePlayer mPlayer;
 
     /**
      * 背景用のBitmapクラス.
@@ -164,8 +167,8 @@ public class MainSurfaceView extends SurfaceView implements
 	mPaint.setAntiAlias(true);
 
 	Resources resource = getResources();
-	// Playerの画像をセット
-	mPlayer = new Player(resource,
+	// Playerのインスタンス作成
+	mPlayer = PlayerFactory.create(Const.PLAYER_TYPE_GOOMBA, resource,
 	        (int) (windowWidth * DEFAULT_PLAYER_WIDTH_RATE),
 	        (int) (windowHeight * DEFAULT_PLAYER_HEIGHT_RATE));
 	mBitmapPlayer = mPlayer.createBitmap();
