@@ -99,7 +99,7 @@ public class MainSurfaceView extends SurfaceView implements
     /**
      * 実行中かどうかの情報.
      */
-    private boolean isExecuted = true;
+    private boolean isExecuted;
 
     /**
      * コンストラクタ.
@@ -134,6 +134,7 @@ public class MainSurfaceView extends SurfaceView implements
     @Override
     public final void surfaceCreated(final SurfaceHolder holder) {
 	Log.d(TAG, "Create SurfaceView");
+	isExecuted = true;
 	init();
 	mThread.start();
     }
