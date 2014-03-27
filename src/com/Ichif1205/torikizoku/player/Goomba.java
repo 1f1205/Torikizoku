@@ -42,11 +42,20 @@ public class Goomba extends BasePlayer {
     }
 
     @Override
-    public final boolean onTouch(final View v, final MotionEvent event) {
-	if (event.getAction() == MotionEvent.ACTION_UP) {
+    public final void upAction() {
 	    dx = -dx;
-	}
-	return true;
+    }
+
+    @Override
+    public void downAction() {
+    }
+
+    @Override
+    public void moveAction() {
+    }
+
+    @Override
+    public void cancelAction() {
     }
 
 }

@@ -108,7 +108,19 @@ public abstract class BasePlayer implements OnTouchListener {
     }
 
     @Override
-    public abstract boolean onTouch(final View v, final MotionEvent event);
+    public final boolean onTouch(final View v, final MotionEvent event) {
+	if (event.getAction() == MotionEvent.ACTION_UP) {
+	    upAction();
+	} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+	    downAction();
+	} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+	    moveAction();
+	} else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+	    cancelAction();
+	}
+
+	return true;
+    }
 
     /**
      * 画像を取得.
@@ -121,4 +133,24 @@ public abstract class BasePlayer implements OnTouchListener {
      * Playerの位置を更新.
      */
     public abstract void updatePosition();
+
+    /**
+     * 指を離した時の処理.
+     */
+    public abstract void upAction();
+
+    /**
+     * 指を接触した時の処理.
+     */
+    public abstract void downAction();
+
+    /**
+     * 指を動かした時の処理.
+     */
+    public abstract void moveAction();
+
+    /**
+     * upとdownが同時に発生した場合の処理.
+     */
+    public abstract void cancelAction();
 }
