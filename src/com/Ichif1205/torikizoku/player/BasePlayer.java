@@ -57,12 +57,12 @@ public abstract class BasePlayer implements OnTouchListener {
     /**
      * デフォルトの幅.
      */
-    public static final int DEFAULT_PLYER_WIDTH = 72;
+    public static final int DEFAULT_PLYER_WIDTH = 27;
 
     /**
      * デフォルトの高さ.
      */
-    public static final int DEFAULT_PLYER_HEIGHT = 72;
+    public static final int DEFAULT_PLYER_HEIGHT = 27;
 
     /**
      * コンストラクタ.
