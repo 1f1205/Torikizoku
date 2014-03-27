@@ -87,14 +87,16 @@ public class MainSurfaceView extends SurfaceView implements
     private long windowHeight;
 
     /**
-     * PlayerのBitmapを最初に表示させるためのウィンドウ幅に対する割合.
+     * PlayerのBitmapを最初に表示させる位置のためのウィンドウ幅に対する割合.
      */
     private static final double DEFAULT_PLAYER_WIDTH_RATE = 0.5;
 
     /**
-     * PlayerのBitmapを最初に表示させるためのウィンドウ高さに対する割合.
+     * PlayerのBitmapを最初に表示させる位置のためのウィンドウ高さに対する割合.
+     * TODO ステージに合わせて値を変えれるように変更.
+     * TODO 端末によって位置がずれる.
      */
-    private static final double DEFAULT_PLAYER_HEIGHT_RATE = 0.625;
+    private static final double DEFAULT_PLAYER_HEIGHT_RATE = 0.74;
 
     /**
      * 実行中かどうかの情報.
@@ -164,10 +166,14 @@ public class MainSurfaceView extends SurfaceView implements
 	windowHeight = getHeight();
 
 	mPaint = new Paint();
-	mPaint.setColor(Color.BLACK);
+	// mPaint.setColor(Color.BLACK);
 	mPaint.setAntiAlias(true);
 
 	Resources resource = getResources();
+
+	// 背景画像をセット
+	drawBackground(resource);
+
 	// Playerのインスタンス作成
 	mPlayer = PlayerFactory.create(Const.PLAYER_TYPE_GOOMBA, resource,
 	        (int) (windowWidth * DEFAULT_PLAYER_WIDTH_RATE),
@@ -180,6 +186,7 @@ public class MainSurfaceView extends SurfaceView implements
 
     @Override
     public final void run() {
+	Log.d(TAG, "run");
 	while (isExecuted) {
 	    onDraw();
 	}
@@ -190,9 +197,24 @@ public class MainSurfaceView extends SurfaceView implements
      */
     public final void onDraw() {
 	mCanvas = getHolder().lockCanvas();
-	// 背景色
-	mCanvas.drawColor(Color.WHITE);
+	mCanvas.drawBitmap(mBitmapBackground, 0, 0, null);
 	mPlayer.drawPlayer(mCanvas, mPaint);
 	getHolder().unlockCanvasAndPost(mCanvas);
+    }
+
+    /**
+     * 背景を描画するクラス.
+     * 
+     * @param res
+     *            リソース.
+     */
+    public final void drawBackground(final Resources res) {
+	mBitmapBackground = BitmapFactory.decodeResource(getResources(),
+	        R.drawable.background);
+	float scale = (float) mBitmapBackground.getHeight()
+	        / (float) getHeight();
+	mBitmapBackground = Bitmap.createScaledBitmap(mBitmapBackground,
+	        (int) windowWidth, (int) windowHeight, true);
+
     }
 }
