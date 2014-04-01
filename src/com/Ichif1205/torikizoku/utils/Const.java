@@ -18,6 +18,11 @@ public final class Const {
     public static final int PLAYER_TYPE_GOOMBA = 1;
 
     /**
+     * Player1
+     */
+    public static final int PLAYER_TYPE_MARIO = 1;
+
+    /**
      * コンストラクタ.
      */
     private Const() {

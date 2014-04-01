@@ -1,18 +1,19 @@
-package com.Ichif1205.torikizoku.player;
+package com.Ichif1205.torikizoku.enemy;
 
 import android.content.res.Resources;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.Ichif1205.torikizoku.R;
+import com.Ichif1205.torikizoku.utils.Const;
 
 /**
- * Goombaクラス.
+ * Marioクラス.
  * 
  * @author wkodate
  * 
  */
-public class Goomba extends BasePlayer {
+public class Mario extends BaseEnemy {
 
     /**
      * コンストラクタ.
@@ -22,15 +23,15 @@ public class Goomba extends BasePlayer {
      * @param x
      *            x座標.
      * @param y
-     *            z座標.
+     *            y座標.
      */
-    public Goomba(final Resources res, final int x, final int y) {
+    public Mario(final Resources res, final int x, final int y) {
 	super(res, x, y);
     }
 
     @Override
-    protected final int getPlayerResource() {
-	return R.drawable.goomba;
+    protected final int getEnemyResource() {
+	return R.drawable.mario;
     }
 
     /**
@@ -39,23 +40,7 @@ public class Goomba extends BasePlayer {
     public final void updatePosition() {
 	// TODO 画面の端に行った時の処理
 	posX += dx;
+	// TODO y方向の動き
+	//posY = (int) Math.abs(20 * Math.sin(posX * (Math.PI / 180)));
     }
-
-    @Override
-    public final void upAction() {
-	dx = -dx;
-    }
-
-    @Override
-    public void downAction() {
-    }
-
-    @Override
-    public void moveAction() {
-    }
-
-    @Override
-    public void cancelAction() {
-    }
-
 }

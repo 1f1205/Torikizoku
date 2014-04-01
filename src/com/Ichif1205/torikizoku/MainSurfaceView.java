@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.Ichif1205.torikizoku.enemy.BaseEnemy;
+import com.Ichif1205.torikizoku.enemy.EnemyFactory;
 import com.Ichif1205.torikizoku.player.BasePlayer;
 import com.Ichif1205.torikizoku.player.PlayerFactory;
 import com.Ichif1205.torikizoku.utils.Const;
@@ -67,6 +69,11 @@ public class MainSurfaceView extends SurfaceView implements
     private BasePlayer mPlayer;
 
     /**
+     * Playerクラス.
+     */
+    private BaseEnemy mEnemy;
+
+    /**
      * 背景用のBitmapクラス.
      */
     private Bitmap mBitmapBackground;
@@ -75,6 +82,11 @@ public class MainSurfaceView extends SurfaceView implements
      * Player用のBitmapクラス.
      */
     private Bitmap mBitmapPlayer;
+
+    /**
+     * Enemy用のBitmapクラス.
+     */
+    private Bitmap mBitmapEnemy;
 
     /**
      * 画面幅.
@@ -92,12 +104,14 @@ public class MainSurfaceView extends SurfaceView implements
     private static final double DEFAULT_PLAYER_WIDTH_RATE = 0.5;
 
     /**
-     * PlayerのBitmapを最初に表示させる位置のためのウィンドウ高さに対する割合.
-     * TODO ステージに合わせて値を変えれるように変更.
+     * PlayerのBitmapを最初に表示させる位置のためのウィンドウ高さに対する割合. TODO ステージに合わせて値を変えれるように変更.
      * TODO 端末によって位置がずれる.
      */
     private static final double DEFAULT_PLAYER_HEIGHT_RATE = 0.74;
 
+    private static final double DEFAULT_ENEMY_WIDTH_RATE = 0.1;
+
+    private static final double DEFAULT_ENEMY_HEIGHT_RATE = 0.74;
     /**
      * 実行中かどうかの情報.
      */
@@ -166,7 +180,6 @@ public class MainSurfaceView extends SurfaceView implements
 	windowHeight = getHeight();
 
 	mPaint = new Paint();
-	// mPaint.setColor(Color.BLACK);
 	mPaint.setAntiAlias(true);
 
 	Resources resource = getResources();
@@ -180,6 +193,12 @@ public class MainSurfaceView extends SurfaceView implements
 	        (int) (windowHeight * DEFAULT_PLAYER_HEIGHT_RATE));
 	mBitmapPlayer = mPlayer.createBitmap();
 	setOnTouchListener(mPlayer);
+
+	// Enemyのインスタンス作成
+	mEnemy = EnemyFactory.create(Const.PLAYER_TYPE_MARIO, resource,
+	        (int) (windowWidth * DEFAULT_ENEMY_WIDTH_RATE),
+	        (int) (windowHeight * DEFAULT_ENEMY_HEIGHT_RATE));
+	mBitmapEnemy = mEnemy.createBitmap();
 
 	mHandler = new Handler();
     }
@@ -199,6 +218,7 @@ public class MainSurfaceView extends SurfaceView implements
 	mCanvas = getHolder().lockCanvas();
 	mCanvas.drawBitmap(mBitmapBackground, 0, 0, null);
 	mPlayer.drawPlayer(mCanvas, mPaint);
+	mEnemy.drawEnemy(mCanvas, mPaint);
 	getHolder().unlockCanvasAndPost(mCanvas);
     }
 
@@ -211,8 +231,6 @@ public class MainSurfaceView extends SurfaceView implements
     public final void drawBackground(final Resources res) {
 	mBitmapBackground = BitmapFactory.decodeResource(getResources(),
 	        R.drawable.background);
-	float scale = (float) mBitmapBackground.getHeight()
-	        / (float) getHeight();
 	mBitmapBackground = Bitmap.createScaledBitmap(mBitmapBackground,
 	        (int) windowWidth, (int) windowHeight, true);
 
