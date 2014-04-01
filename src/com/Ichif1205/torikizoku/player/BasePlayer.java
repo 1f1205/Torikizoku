@@ -22,17 +22,17 @@ public abstract class BasePlayer implements OnTouchListener {
     /**
      * x座標.
      */
-    public int posX;
+    protected int posX;
 
     /**
      * y座標.
      */
-    public int posY;
+    protected int posY;
 
     /**
      * x方向の速度.
      */
-    public int dx;
+    protected int dx;
 
     /**
      * ビットマップクラス.
