@@ -52,17 +52,17 @@ public abstract class BasePlayer implements OnTouchListener {
     /**
      * デフォルトのx方向速度.
      */
-    public static final int DEFAULT_PLYER_DX = -6;
+    public static final int DEFAULT_PLAYER_DX = -6;
 
     /**
      * デフォルトの幅.
      */
-    public static final int DEFAULT_PLYER_WIDTH = 27;
+    public static final int DEFAULT_PLAYER_WIDTH = 27;
 
     /**
      * デフォルトの高さ.
      */
-    public static final int DEFAULT_PLYER_HEIGHT = 27;
+    public static final int DEFAULT_PLAYER_HEIGHT = 27;
 
     /**
      * コンストラクタ.
@@ -76,9 +76,9 @@ public abstract class BasePlayer implements OnTouchListener {
      */
     public BasePlayer(final Resources res, final int x, final int y) {
 	// TODO 変更がありそうなら引数に追加
-	dx = DEFAULT_PLYER_DX;
-	width = DEFAULT_PLYER_WIDTH;
-	height = DEFAULT_PLYER_HEIGHT;
+	dx = DEFAULT_PLAYER_DX;
+	width = DEFAULT_PLAYER_WIDTH;
+	height = DEFAULT_PLAYER_HEIGHT;
 	posX = x;
 	posY = y;
 	mBitmap = BitmapFactory.decodeResource(res, R.drawable.goomba);
