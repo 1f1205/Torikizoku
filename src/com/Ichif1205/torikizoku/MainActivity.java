@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 /**
  * Mainアクティビティ.
- * 
+ *
  * @author wkodate
- * 
+ *
  */
 public class MainActivity extends Activity {
 
@@ -28,46 +28,47 @@ public class MainActivity extends Activity {
 
     @Override
     protected final void onCreate(final Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	Log.d(TAG, "onCreate");
-	setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
+        setContentView(R.layout.activity_main);
 
-	mainSurfaceView = (MainSurfaceView) findViewById(R.id.MainSurfaceView_id);
-	Log.d(TAG, "Start FindView");
+        mainSurfaceView = (MainSurfaceView) findViewById(R.id.MainSurfaceView_id);
+        Log.d(TAG, "Start FindView");
     }
 
     @Override
     protected final void onResume() {
-	super.onResume();
-	Log.d(TAG, "onResume");
+        super.onResume();
+        Log.d(TAG, "onResume");
     }
 
     @Override
     protected final void onPause() {
-	super.onPause();
+        super.onPause();
     }
 
     @Override
     protected final void onRestart() {
-	super.onRestart();
+        super.onRestart();
     }
 
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-	/**
-	 * コンストラクタ.
-	 */
-	public PlaceholderFragment() {
-	}
+        /**
+         * コンストラクタ.
+         */
+        public PlaceholderFragment() {
+        }
 
-	@Override
-	public final View onCreateView(final LayoutInflater inflater,
-	        final ViewGroup container, final Bundle savedInstanceState) {
-	    View rootView = inflater.inflate(R.layout.fragment_main, container,
-		    false);
-	    return rootView;
-	}
+        @Override
+        public final View onCreateView(final LayoutInflater inflater,
+                final ViewGroup container, final Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main,
+                    container,
+                    false);
+            return rootView;
+        }
     }
 }

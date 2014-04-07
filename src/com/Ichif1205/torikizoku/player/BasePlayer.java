@@ -13,9 +13,9 @@ import com.Ichif1205.torikizoku.R;
 
 /**
  * BasePlayerクラス.
- * 
+ *
  * @author wkodate
- * 
+ *
  */
 public abstract class BasePlayer implements OnTouchListener {
 
@@ -37,17 +37,17 @@ public abstract class BasePlayer implements OnTouchListener {
     /**
      * ビットマップクラス.
      */
-    private Bitmap mBitmap;
+    private final Bitmap mBitmap;
 
     /**
      * 幅.
      */
-    private int width;
+    private final int width;
 
     /**
      * 高さ.
      */
-    private int height;
+    private final int height;
 
     /**
      * デフォルトのx方向速度.
@@ -66,7 +66,7 @@ public abstract class BasePlayer implements OnTouchListener {
 
     /**
      * コンストラクタ.
-     * 
+     *
      * @param res
      *            リソース.
      * @param x
@@ -75,56 +75,56 @@ public abstract class BasePlayer implements OnTouchListener {
      *            z座標.
      */
     public BasePlayer(final Resources res, final int x, final int y) {
-	// TODO 変更がありそうなら引数に追加
-	dx = DEFAULT_PLAYER_DX;
-	width = DEFAULT_PLAYER_WIDTH;
-	height = DEFAULT_PLAYER_HEIGHT;
-	posX = x;
-	posY = y;
-	mBitmap = BitmapFactory.decodeResource(res, R.drawable.goomba);
+        // TODO 変更がありそうなら引数に追加
+        dx = DEFAULT_PLAYER_DX;
+        width = DEFAULT_PLAYER_WIDTH;
+        height = DEFAULT_PLAYER_HEIGHT;
+        posX = x;
+        posY = y;
+        mBitmap = BitmapFactory.decodeResource(res, R.drawable.goomba);
     }
 
     /**
      * Bitmapを作成して返す.
-     * 
+     *
      * @return Playerのbitmap
      */
     public final Bitmap createBitmap() {
-	return Bitmap.createScaledBitmap(mBitmap, width, height, true);
+        return Bitmap.createScaledBitmap(mBitmap, width, height, true);
     }
 
     /**
      * Playerの描画.
-     * 
+     *
      * @param canvas
      *            2次元描画を行うクラス.
      * @param paint
      *            色やスタイルの情報を持つクラス.
      */
     public final void drawPlayer(final Canvas canvas, final Paint paint) {
-	canvas.drawBitmap(mBitmap, posX, posY, paint);
-	paint.setStyle(Paint.Style.FILL_AND_STROKE);
-	updatePosition();
+        canvas.drawBitmap(mBitmap, posX, posY, paint);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        updatePosition();
     }
 
     @Override
     public final boolean onTouch(final View v, final MotionEvent event) {
-	if (event.getAction() == MotionEvent.ACTION_UP) {
-	    upAction();
-	} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-	    downAction();
-	} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-	    moveAction();
-	} else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-	    cancelAction();
-	}
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            upAction();
+        } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            downAction();
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            moveAction();
+        } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+            cancelAction();
+        }
 
-	return true;
+        return true;
     }
 
     /**
      * 画像を取得.
-     * 
+     *
      * @return 画像のID.
      */
     protected abstract int getPlayerResource();

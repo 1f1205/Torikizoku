@@ -4,9 +4,9 @@ import android.content.res.Resources;
 
 /**
  * Enemyオブジェクトを生成するクラス.
- * 
+ *
  * @author wkodate
- * 
+ *
  */
 public final class EnemyFactory {
 
@@ -19,7 +19,7 @@ public final class EnemyFactory {
 
     /**
      * Playerのインスタンスを生成.
-     * 
+     *
      * @param type
      *            Playerの種類.
      * @param res
@@ -31,12 +31,12 @@ public final class EnemyFactory {
      * @return Playerインスタンス.
      */
     public static BaseEnemy create(final int type, final Resources res,
-	    final int width, final int height) {
-	final BaseEnemy enemy;
+            final int width, final int height) {
+        final BaseEnemy enemy;
 
-	// if type == 1
-	enemy = new Mario(res, width, height);
+        // if type == 1
+        enemy = new Mario(res, width, height);
 
-	return enemy;
+        return enemy;
     }
 }
